@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.sumin.composition.R
+import androidx.navigation.fragment.findNavController
 import com.sumin.composition.databinding.FragmentChooseLevelBinding
 import com.sumin.composition.domain.entity.Level
 
@@ -15,7 +15,7 @@ class ChooseLevelFragment : Fragment() {
     private val binding: FragmentChooseLevelBinding
         get() = _binding ?: throw RuntimeException("FragmentChooseLevelBinding == null")
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentChooseLevelBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,18 +42,7 @@ class ChooseLevelFragment : Fragment() {
     }
 
     private fun launchGameFragment(level: Level) {
-        requireActivity().supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.main_container, GameFragment.newInstance(level))
-            .addToBackStack(GameFragment.NAME)
-            .commit()
+        findNavController().navigate(ChooseLevelFragmentDirections.actionChooseLevelFragmentToGameFragment(level))
     }
 
-    companion object {
-
-        const val NAME = "ChooseLevelFragment"
-        fun newInstance(): ChooseLevelFragment {
-            return ChooseLevelFragment()
-        }
-    }
 }

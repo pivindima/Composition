@@ -9,13 +9,13 @@ import java.lang.RuntimeException
 class GameViewModelFactory(
     private val application: Application,
     private val level: Level
-): ViewModelProvider.AndroidViewModelFactory() {
+) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
             return GameViewModel(application, level) as T
-        } else {
-            throw RuntimeException("Unknown viewModel class $modelClass")
         }
+        throw RuntimeException("Unknown view model class $modelClass")
     }
 
 }
