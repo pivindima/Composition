@@ -17,4 +17,5 @@ class GameViewModelFactory(
             throw RuntimeException("Unknown viewModel class $modelClass")
         }
     }
+
 }
